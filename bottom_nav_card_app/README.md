@@ -1,4 +1,4 @@
-# my_music_player_app
+# bottom_nav_card_app
 
 A new Flutter project.
 
