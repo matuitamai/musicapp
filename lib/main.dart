@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-void main() => runApp(const BottomNavigationBarExampleApp());
+void main() => runApp(const musicApp());
 
 bool _isDarkMode = false;
 
-class BottomNavigationBarExampleApp extends StatelessWidget {
-  const BottomNavigationBarExampleApp({super.key});
+class musicApp extends StatelessWidget {
+  const musicApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: BottomNavigationBarExample(),
+      home: BottomBar(),
     );
   }
 }
 
-class BottomNavigationBarExample extends StatefulWidget {
-  const BottomNavigationBarExample({super.key});
+class BottomBar extends StatefulWidget {
+  const BottomBar({super.key});
 
   @override
-  State<BottomNavigationBarExample> createState() =>
-      _BottomNavigationBarExampleState();
+  State<BottomBar> createState() => page();
 }
 
-class _BottomNavigationBarExampleState
-    extends State<BottomNavigationBarExample> {
+class page extends State<BottomBar> {
   int _selectedIndex = 0;
   // ignore: prefer_final_fields
   static List<Widget> _widgetOptions = <Widget>[
-    MyWidget(),
-    const MyFindWidget(),
-    const CardListExample(),
+    listenWidget(),
+    const findWidget(),
+    const radiowidget(),
   ];
 
   void _onItemTapped(int index) {
@@ -40,59 +38,38 @@ class _BottomNavigationBarExampleState
     });
   }
 
-  void _toggleTheme() {
-    setState(() {
-      _isDarkMode = !_isDarkMode;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
-      home: Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                _isDarkMode ? Icons.brightness_high : Icons.brightness_low,
-              ),
-              onPressed: () {
-                _toggleTheme();
-              },
-            )
-          ],
-        ),
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.transcribe),
-              label: '今すぐ聴く',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.swipe_right),
-              label: '見つける',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.radio),
-              label: 'ラジオ',
-            ),
-          ],
-          iconSize: 20,
-          currentIndex: _selectedIndex,
-          selectedItemColor: const Color.fromARGB(255, 224, 32, 32),
-          onTap: _onItemTapped,
-        ),
+    return Scaffold(
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.transcribe),
+            label: '今すぐ聴く',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.swipe_right),
+            label: '見つける',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.radio),
+            label: 'ラジオ',
+          ),
+        ],
+        iconSize: 20,
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color.fromARGB(255, 224, 32, 32),
+        onTap: _onItemTapped,
       ),
     );
   }
 }
 
 // ignore: use_key_in_widget_constructors
-class MyWidget extends StatelessWidget {
+class listenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,8 +190,8 @@ class MyWidget extends StatelessWidget {
       );
 }
 
-class MyFindWidget extends StatelessWidget {
-  const MyFindWidget({super.key});
+class findWidget extends StatelessWidget {
+  const findWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -343,14 +320,14 @@ class CardExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: CardListExample(),
+        body: radiowidget(),
       ),
     );
   }
 }
 
-class CardListExample extends StatelessWidget {
-  const CardListExample({super.key});
+class radiowidget extends StatelessWidget {
+  const radiowidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -527,7 +504,6 @@ class CardItem extends StatelessWidget {
         color: cardColor,
         clipBehavior: Clip.hardEdge,
         child: InkWell(
-          splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             debugPrint('Card tapped.');
           },
