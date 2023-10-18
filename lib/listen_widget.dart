@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'artist_list.dart';
 
-class listenWidget extends StatelessWidget {
+class ListenWidget extends StatelessWidget {
+  const ListenWidget({Key? key}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,97 +30,64 @@ class listenWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 200,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: _children1,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 8, top: 16),
-            child: Text(
-              'ピックアップ',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 100,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: _children2,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 8, top: 16),
-            child: Text(
-              'ピックアップ',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          SizedBox(
+          Container(
             height: 300,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: _children3,
-            ),
+            child: Trackwidget(refresh),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: PlayerHome(currentSong),
+          )
         ],
       ),
     );
   }
 
-  List<Widget> get _children1 => List<Widget>.generate(
-        8,
-        (index) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 200,
-            width: 200,
-            decoration: BoxDecoration(
-              color: Colors
-                  .primaries[Random.secure().nextInt(Colors.primaries.length)],
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-        ),
-      );
+  refresh() {
+    setState(() {});
+  }
 
-  List<Widget> get _children2 => List<Widget>.generate(
-        8,
-        (index) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              color: Colors
-                  .primaries[Random.secure().nextInt(Colors.primaries.length)],
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-        ),
-      );
+  void setState(Null Function() param0) {}
+}
 
-  List<Widget> get _children3 => List<Widget>.generate(
-        8,
-        (index) => Padding(
-          padding: const EdgeInsets.all(8),
-          child: Container(
-            height: 300,
-            width: 300,
-            decoration: BoxDecoration(
-              color: Colors
-                  .primaries[Random.secure().nextInt(Colors.primaries.length)],
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-        ),
-      );
+
+
+PlayerHome(Song currentSong) {}
+
+Song currentSong = Song(
+    name: "title",
+    singer: "singer",
+    image: "assets/picture1.jpg",
+    videoUr: "022_BPM90.mp3",
+    color: Colors.black);
+double currentSlider = 0;
+
+class Trackwidget extends StatelessWidget {
+  final Function() notifyParent;
+  Trackwidget(this.notifyParent);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: mostPopular.length,
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: EdgeInsets.all(10),
+          width: 200,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                    color: mostPopular[index].color,
+                    blurRadius: 1,
+                    spreadRadius: 0.3)
+              ],
+              image:
+                  DecorationImage(image: AssetImage(mostPopular[index].image))),
+        );
+      },
+    );
+  }
 }

@@ -27,7 +27,7 @@ class page extends State<BottomBar> {
   int _selectedIndex = 0;
   // ignore: prefer_final_fields
   static List<Widget> _widgetOptions = <Widget>[
-    listenWidget(),
+    const ListenWidget(),
     const findWidget(),
     const radiowidget(),
   ];
